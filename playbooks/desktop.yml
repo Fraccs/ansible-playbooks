@@ -22,8 +22,9 @@
       - wget
     snap_packages_to_install:
       - discord
-      - code
       - spotify
+    snap_classic_packages_to_install:
+      - code
     snap_packages_to_remove:
       - firefox
   tasks:
@@ -37,6 +38,10 @@
     - name: Install snap packages
       community.general.snap:
         name: "{{ snap_packages_to_install }}"
+    - name: Install snap (classic) packages
+      community.general.snap:
+        name: "{{ snap_classic_packages_to_install }}"
+        classic: true
     - name: Remove snap packages
       community.general.snap:
         name: "{{ snap_packages_to_remove }}"
