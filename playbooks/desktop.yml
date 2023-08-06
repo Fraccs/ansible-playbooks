@@ -1,0 +1,42 @@
+---
+- name: Setup desktop (ubuntu)
+  hosts: localhost
+  become: true
+  vars:
+    apt_packages_to_install:
+      - build-essential
+      - cmake
+      - curl
+      - default-jdk
+      - default-jre
+      - nvidia-driver-525
+      - gcc
+      - gdb
+      - git
+      - htop
+      - make
+      - maven
+      - python3
+      - python3-pip
+      - vim
+      - wget
+    snap_packages_to_install:
+      - discord
+      - code
+      - spotify
+    snap_packages_to_remove:
+      - firefox
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+    - name: Install apt packages
+      apt:
+        name: "{{ apt_packages_to_install }}"
+        state: present
+    - name: Install snap packages
+      community.general.snap:
+        name: "{{ snap_packages_to_install }}"
+    - name: Remove snap packages
+      community.general.snap:
+        name: "{{ snap_packages_to_remove }}"
