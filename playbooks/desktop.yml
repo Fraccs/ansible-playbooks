@@ -47,11 +47,11 @@
         name: "{{ snap_packages_to_remove }}"
     - name: Add apt signing key for Google Chrome
       apt_key:
-        url: "https://dl.google.com/linux/linux_signing_key.pub"
+        url: https://dl.google.com/linux/linux_signing_key.pub
         state: present
     - name: Add Google Chrome repository
       apt_repository:
-        repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+        repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
         state: present
         filename: google-chrome
     - name: Install Google Chrome
@@ -59,3 +59,17 @@
         name: google-chrome-stable
         state: present
         update_cache: true
+    - name: Add apt gpg key for nodejs
+      apt_key:
+        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        state: present
+    - name: Add nodejs repository
+      apt_repository:
+        repo: "deb https://deb.nodesource.com/node_18.x {{ ansible_distribution_release }} main"
+        state: present
+        update_cache: true
+        filename: nodesource
+    - name: Install nodejs
+      apt:
+        name: nodejs
+        state: present
