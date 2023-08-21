@@ -1,0 +1,14 @@
+- name: Install JDK
+  apt:
+    name: default-jdk
+    state: present
+
+- name: Install JRE
+  apt:
+    name: default-jre
+    state: present
+
+- name: Install maven
+  apt:
+    name: maven
+    state: present

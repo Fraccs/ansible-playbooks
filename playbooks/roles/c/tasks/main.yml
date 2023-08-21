@@ -1,0 +1,24 @@
+- name: Install build-essential
+  apt:
+    name: build-essential
+    state: present
+
+- name: Install gcc
+  apt:
+    name: gcc
+    state: present
+
+- name: Install gdb
+  apt:
+    name: gdb
+    state: present
+
+- name: Install make
+  apt:
+    name: make
+    state: present
+
+- name: Install cmake
+  apt:
+    name: cmake
+    state: present

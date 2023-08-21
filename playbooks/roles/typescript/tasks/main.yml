@@ -1,0 +1,5 @@
+- name: Install typescript
+  npm:
+    name: typescript
+    global: true
+    state: present

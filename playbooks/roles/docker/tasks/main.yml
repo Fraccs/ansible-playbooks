@@ -1,8 +1,11 @@
----
-
 - name: Install docker requirements
+  vars:
+    packages:
+      - ca-certificates
+      - curl
+      - gnupg 
   apt:
-    name: "ca-certificates curl gnupg"
+    name: "{{ packages }}"
     state: present
 
 - name: Add docker gpg key
@@ -16,7 +19,13 @@
     state: present
 
 - name: Install docker
+  vars:
+    packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
   apt:
-    name: docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    name: "{{ packages }}"
     state: present
-    update_cache: true

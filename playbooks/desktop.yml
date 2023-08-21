@@ -2,99 +2,21 @@
 - name: Setup desktop (ubuntu)
   hosts: localhost
   become: true
-  vars:
-    apt_packages_to_install:
-      - build-essential
-      - cmake
-      - curl
-      - default-jdk
-      - default-jre
-      - nvidia-driver-525
-      - gcc
-      - gdb
-      - git
-      - htop
-      - make
-      - maven
-      - python3
-      - python3-pip
-      - vim
-      - wget
-    snap_packages_to_install:
-      - discord
-      - spotify
-    snap_classic_packages_to_install:
-      - code
-    snap_packages_to_remove:
-      - firefox
-  tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: true
-    - name: Install apt packages
-      apt:
-        name: "{{ apt_packages_to_install }}"
-        state: present
-    - name: Install snap packages
-      community.general.snap:
-        name: "{{ snap_packages_to_install }}"
-    - name: Install snap (classic) packages
-      community.general.snap:
-        name: "{{ snap_classic_packages_to_install }}"
-        classic: true
-    - name: Remove snap packages
-      community.general.snap:
-        name: "{{ snap_packages_to_remove }}"
-    - name: Add apt signing key for Google Chrome
-      apt_key:
-        url: https://dl.google.com/linux/linux_signing_key.pub
-        state: present
-    - name: Add Google Chrome repository
-      apt_repository:
-        repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-        state: present
-        filename: google-chrome
-    - name: Install Google Chrome
-      apt:
-        name: google-chrome-stable
-        state: present
-        update_cache: true
-    - name: Add apt gpg key for nodejs
-      apt_key:
-        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-        state: present
-    - name: Add nodejs repository
-      apt_repository:
-        repo: "deb https://deb.nodesource.com/node_18.x {{ ansible_distribution_release }} main"
-        state: present
-        update_cache: true
-        filename: nodesource
-    - name: Install nodejs
-      apt:
-        name: nodejs
-        state: present
-    - name: Install nvm
-      shell: >
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-      args:
-        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
-    - name: Install typescript
-      npm:
-        name: typescript
-        global: true
-        state: present
-    - name: Setup git core.editor
-      community.general.git_config:
-        name: core.editor
-        scope: global
-        value: vim
-    - name: Setup git user.email
-      community.general.git_config:
-        name: user.email
-        scope: global
-        value: aliprandifrancescopp@gmail.com
-    - name: Setup git user.name
-      community.general.git_config:
-        name: user.name
-        scope: global
-        value: "Aliprandi Francesco"
+  roles:
+    - c
+    - chrome
+    - curl
+    - discord
+    - docker
+    - git
+    - htop
+    - java
+    - nodejs
+    - nvidia
+    - obsidian
+    - python
+    - spotify
+    - typescript
+    - vim
+    - vscode
+    - wget

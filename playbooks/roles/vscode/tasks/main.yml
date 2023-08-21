@@ -1,0 +1,5 @@
+- name: Install vscode
+  snap:
+    name: code
+    classic: true
+    state: present
