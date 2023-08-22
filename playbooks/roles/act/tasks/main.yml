@@ -1,0 +1,12 @@
+- name: Download act binary
+  get_url:
+    url: https://github.com/nektos/act/releases/download/v0.2.49/act_Linux_x86_64.tar.gz
+    dest: /tmp/act_Linux_x86_64.tar.gz
+
+- name: Decompress tar
+  unarchive:
+    src: /tmp/act_Linux_x86_64.tar.gz
+    dest: /tmp
+
+- name: Install act
+  shell: mv /tmp/act /usr/local/bin
