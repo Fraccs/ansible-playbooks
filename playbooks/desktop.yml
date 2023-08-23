@@ -1,9 +1,10 @@
 ---
-- name: Setup desktop (ubuntu)
+- name: Setup desktop (Ubuntu 22.04)
   hosts: localhost
   become: true
   roles:
     - act
+    - bitwarden
     - c
     - chrome
     - curl
