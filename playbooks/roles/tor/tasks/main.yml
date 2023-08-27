@@ -1,0 +1,9 @@
+- name: Install tor daemon
+  apt:
+    name: tor
+    state: latest
+
+- name: Install tor browser
+  apt:
+    name: torbrowser-launcher
+    state: latest
