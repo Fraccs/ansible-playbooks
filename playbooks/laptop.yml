@@ -1,0 +1,24 @@
+---
+- name: Setup laptop (Ubuntu 22.04)
+  hosts: localhost
+  become: true
+  roles:
+    - act
+    - bitwarden
+    - c
+    - chrome
+    - curl
+    - discord
+    - docker
+    - git
+    - htop
+    - java
+    - nodejs
+    - obsidian
+    - python
+    - spotify
+    - tor
+    - typescript
+    - vim
+    - vscode
+    - wget
