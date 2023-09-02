@@ -1,0 +1,9 @@
+- name: Install make
+  apt:
+    name: make
+    state: present
+
+- name: Install cmake
+  apt:
+    name: cmake
+    state: present

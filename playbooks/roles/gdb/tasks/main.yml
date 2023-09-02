@@ -1,0 +1,9 @@
+- name: Install gdb
+  apt:
+    name: gdb
+    state: present
+
+# - name: Install gdb-gef
+#   get_url:
+#     url: https://github.com/hugsy/gef/raw/master/gef.py
+#     dest: ~/.gdbinit-gef.py

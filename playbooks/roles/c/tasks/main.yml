@@ -1,24 +1,19 @@
-- name: Install build-essential
-  apt:
-    name: build-essential
-    state: present
-
 - name: Install gcc
   apt:
     name: gcc
     state: present
 
-- name: Install gdb
+- name: Install g++
   apt:
-    name: gdb
+    name: g++
     state: present
 
-- name: Install make
+- name: Install libc6
   apt:
-    name: make
+    name: libc6
     state: present
 
-- name: Install cmake
+- name: Install libc6-dev
   apt:
-    name: cmake
+    name: libc6-dev
     state: present

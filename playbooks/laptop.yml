@@ -10,9 +10,11 @@
     - curl
     - discord
     - docker
+    - gdb
     - git
     - htop
     - java
+    - make
     - nodejs
     - obsidian
     - python

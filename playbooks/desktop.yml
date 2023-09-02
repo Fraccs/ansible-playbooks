@@ -10,10 +10,12 @@
     - curl
     - discord
     - docker
+    - gdb
     - git
     - htop
     - iriun
     - java
+    - make
     - nodejs
     - nvidia
     - obsidian
