@@ -4,6 +4,7 @@
   become: true
   roles:
     - act
+    - binwalk
     - bitwarden
     - c
     - chrome
