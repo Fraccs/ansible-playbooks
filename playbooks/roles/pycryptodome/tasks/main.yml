@@ -1,0 +1,3 @@
+- name: Install pycryptodome
+  pip:
+    name: pycryptodome

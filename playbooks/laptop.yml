@@ -11,6 +11,7 @@
     - curl
     - discord
     - docker
+    - elfutils
     - firefox
     - gdb
     - git
@@ -19,9 +20,15 @@
     - java
     - ltrace
     - make
+    - mtp
     - nodejs
     - obsidian
+    - patchelf
+    - pwntools
+    - pycryptodome
+    - pyshark
     - python
+    - ropper
     - spotify
     - syncthing
     - tor

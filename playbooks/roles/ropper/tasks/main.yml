@@ -1,0 +1,3 @@
+- name: Install ropper
+  pip:
+    name: ropper
