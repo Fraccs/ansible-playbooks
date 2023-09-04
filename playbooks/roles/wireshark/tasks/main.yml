@@ -1,0 +1,9 @@
+- name: Install wireshark
+  apt:
+    name: wireshark
+    state: present
+
+- name: Install tshark
+  apt:
+    name: tshark
+    state: present
