@@ -1,0 +1,4 @@
+- name: Install elfutils
+  apt:
+    name: elfutils
+    state: present

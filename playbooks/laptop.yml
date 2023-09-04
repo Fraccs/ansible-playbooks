@@ -14,8 +14,10 @@
     - firefox
     - gdb
     - git
+    - ht
     - htop
     - java
+    - ltrace
     - make
     - nodejs
     - obsidian

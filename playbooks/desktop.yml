@@ -14,9 +14,11 @@
     - firefox
     - gdb
     - git
+    - ht
     - htop
     - iriun
     - java
+    - ltrace
     - make
     - nodejs
     - nvidia

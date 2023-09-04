@@ -1,0 +1,4 @@
+- name: Install ltrace
+  apt:
+    name: ltrace
+    state: present
