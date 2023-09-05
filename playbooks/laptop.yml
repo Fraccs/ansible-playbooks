@@ -6,6 +6,7 @@
     - act
     - binwalk
     - bitwarden
+    - burpsuite
     - c
     - chrome
     - curl

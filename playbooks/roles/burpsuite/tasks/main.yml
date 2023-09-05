@@ -1,0 +1,8 @@
+- name: Download burpsuite
+  get_url:
+    url: https://portswigger-cdn.net/burp/releases/download?product=community&version=2023.9.4&type=Linux
+    dest: /tmp/burpsuite.sh
+
+- name: Install burpsuite
+  command:
+    cmd: bash /tmp/burpsuite.sh
