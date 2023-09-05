@@ -3,7 +3,70 @@
     name: gdb
     state: present
 
-# - name: Install gdb-gef
-#   get_url:
-#     url: https://github.com/hugsy/gef/raw/master/gef.py
-#     dest: ~/.gdbinit-gef.py
+- name: Clone gef
+  git:
+    repo: https://github.com/hugsy/gef
+    dest: /opt/gef
+
+- name: Create gdb-gef script
+  copy:
+    dest: /usr/bin/gdb-gef
+    attributes: +x
+    content: |
+      #!/bin/sh
+      exec gdb -q -ex init-gef "$@"
+
+- name: Clone pwndbg
+  git:
+    repo: https://github.com/pwndbg/pwndbg
+    dest: /opt/pwndbg
+
+- name: Install pwndbg
+  shell:
+    cmd: cd /opt/pwndbg && ./setup.sh
+
+- name: Create gdb-pwndbg script
+  copy:
+    dest: /usr/bin/gdb-pwndbg
+    attributes: +x
+    content: |
+      #!/bin/sh
+      exec gdb -q -ex init-pwndbg "$@"
+
+- name: Clone peda
+  git:
+    repo: https://github.com/longld/peda.git
+    dest: /opt/peda
+
+- name: Create gdb-peda script
+  copy:
+    dest: /usr/bin/gdb-peda
+    attributes: +x
+    content: |
+      #!/bin/sh
+      exec gdb -q -ex init-peda "$@"
+
+- name: Write gdb configuration
+  copy:
+    dest: /etc/gdb/gdbinit
+    content: |
+      define init-gef
+      source /opt/gef/gef.py
+      end
+      document init-gef
+      Initializes GEF (GDB Enhanced Features)
+      end
+
+      define init-pwndbg
+      source /opt/pwndbg/gdbinit.py
+      end
+      document init-pwndbg
+      Initializes PwnDBG
+      end
+
+      define init-peda
+      source /opt/peda/peda.py
+      end
+      document init-peda
+      Initializes the PEDA (Python Exploit Development Assistant for GDB) framework
+      end
