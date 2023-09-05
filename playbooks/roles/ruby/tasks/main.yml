@@ -1,3 +1,7 @@
 - name: Install ruby
   apt:
     name: ruby
+
+- name: Install ruby-dev
+  apt:
+    name: ruby-dev
