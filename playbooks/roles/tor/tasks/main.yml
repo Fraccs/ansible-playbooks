@@ -4,7 +4,6 @@
     state: latest
 
 - name: Download tor browser
-  become_user: fraccs
   get_url:
     url: https://dist.torproject.org/torbrowser/12.5.3/tor-browser-linux64-12.5.3_ALL.tar.xz
     dest: /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
@@ -28,12 +27,12 @@
     cmd: gpgv --keyring /tmp/tor.keyring /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz.asc /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
 
 - name: Extract tor browser
-  become_user: fraccs
   unarchive:
     src: /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
-    dest: /home/fraccs
+    dest: /opt
+    owner: fraccs
 
 - name: Install tor browser
   become_user: fraccs
   shell:
-    cmd: cd /home/fraccs/tor-browser && ./start-tor-browser.desktop --register-app
+    cmd: cd /opt/tor-browser && ./start-tor-browser.desktop --register-app

@@ -1,37 +1,34 @@
 - name: Download ghidra
-  become_user: fraccs
   get_url:
     url: https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.3.3_build/ghidra_10.3.3_PUBLIC_20230829.zip
     dest: /tmp/ghidra_10.3.3_PUBLIC_20230829.zip
 
 - name: Extract ghidra
-  become_user: fraccs
   unarchive:
     src: /tmp/ghidra_10.3.3_PUBLIC_20230829.zip
-    dest: /home/fraccs
+    dest: /opt
+    owner: fraccs
 
 - name: Ensure that ghidra was extracted
   stat:
-    path: /home/fraccs/ghidra_10.3.3_PUBLIC
+    path: /opt/ghidra_10.3.3_PUBLIC
   register: ghidra_stat
 
 - name: Rename extracted ghidra directory
-  become_user: fraccs
   command:
-    cmd: mv /home/fraccs/ghidra_10.3.3_PUBLIC /home/fraccs/ghidra
+    cmd: mv /opt/ghidra_10.3.3_PUBLIC /opt/ghidra
   when: ghidra_stat.stat.exists
 
 - name: Download ghidra icon
-  become_user: fraccs
   get_url:
     url: https://github.com/NationalSecurityAgency/ghidra/files/3853902/ghidra_ico.zip
     dest: /tmp/ghidra_ico.zip
 
 - name: Extract ghidra icon
-  become_user: fraccs
   unarchive:
     src: /tmp/ghidra_ico.zip
-    dest: /home/fraccs/ghidra/support
+    dest: /opt/ghidra/support
+    owner: fraccs
 
 - name: Create ghidra application launcher
   copy:
@@ -40,7 +37,7 @@
       [Desktop Entry]
       Encoding=UTF-8
       Name=Ghidra
-      Exec=/home/fraccs/ghidra/ghidraRun
-      Icon=/home/fraccs/ghidra/support/ghidra.ico
+      Exec=/opt/ghidra/ghidraRun
+      Icon=/opt/ghidra/support/ghidra.ico
       Type=Application
       Categories=Reversing;
