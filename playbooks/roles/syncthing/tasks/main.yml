@@ -1,22 +1,24 @@
 - name: Add gpg key for syncthing
+  become: true
   apt_key:
     url: https://syncthing.net/release-key.gpg
     keyring: /usr/share/keyrings/syncthing-archive-keyring.gpg
     state: present
 
 - name: Add syncthing apt repository
+  become: true
   apt_repository:
     repo: "deb [signed-by=/usr/share/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable"
-    state: present
     update_cache: true
     filename: syncthing
 
 - name: Install syncthing
+  become: true
   apt:
     name: syncthing
-    state: present
 
 - name: Enable syncthing service
+  become: true
   service:
     name: syncthing@fraccs.service
     state: started

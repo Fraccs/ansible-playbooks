@@ -4,17 +4,20 @@
     dest: /tmp/ghidra_10.3.3_PUBLIC_20230829.zip
 
 - name: Extract ghidra
+  become: true
   unarchive:
     src: /tmp/ghidra_10.3.3_PUBLIC_20230829.zip
     dest: /opt
     owner: fraccs
 
 - name: Ensure that ghidra was extracted
+  become: true
   stat:
     path: /opt/ghidra_10.3.3_PUBLIC
   register: ghidra_stat
 
 - name: Rename extracted ghidra directory
+  become: true
   command:
     cmd: mv /opt/ghidra_10.3.3_PUBLIC /opt/ghidra
   when: ghidra_stat.stat.exists
@@ -25,6 +28,7 @@
     dest: /tmp/ghidra_ico.zip
 
 - name: Extract ghidra icon
+  become: true
   unarchive:
     src: /tmp/ghidra_ico.zip
     dest: /opt/ghidra/support

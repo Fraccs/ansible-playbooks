@@ -1,4 +1,4 @@
 - name: Install nvidia-driver-525
+  become: true
   apt:
     name: nvidia-driver-525
-    state: present

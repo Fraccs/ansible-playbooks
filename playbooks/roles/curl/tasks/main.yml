@@ -1,4 +1,4 @@
 - name: Install curl
+  become: true
   apt:
     name: curl
-    state: present

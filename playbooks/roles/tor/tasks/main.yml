@@ -1,4 +1,5 @@
 - name: Install tor daemon
+  become: true
   apt:
     name: tor
     state: latest
@@ -9,11 +10,13 @@
     dest: /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
 
 - name: Import tor browser developers key
+  become: true
   shell:
     cmd: gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
   register: gpg_output
 
 - name: Export tor browser developers key to file
+  become: true
   shell:
     cmd: gpg --output /tmp/tor.keyring --export 0xEF6E286DDA85EA2A4BA7DE684E2C6E8793298290
 
@@ -23,16 +26,17 @@
     dest: /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz.asc
 
 - name: Verify tor browser signature
+  become: true
   shell:
     cmd: gpgv --keyring /tmp/tor.keyring /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz.asc /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
 
 - name: Extract tor browser
+  become: true
   unarchive:
     src: /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
     dest: /opt
     owner: fraccs
 
 - name: Install tor browser
-  become_user: fraccs
   shell:
     cmd: cd /opt/tor-browser && ./start-tor-browser.desktop --register-app

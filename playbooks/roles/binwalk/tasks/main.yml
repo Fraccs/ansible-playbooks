@@ -1,4 +1,4 @@
 - name: Install binwalk
+  become: true
   apt:
     name: binwalk
-    state: present

@@ -1,3 +1,4 @@
 - name: Install gparted
+  become: true
   apt:
     name: gparted

@@ -1,3 +1,4 @@
 - name: Install iriun webcam
+  become: true
   apt:
     deb: https://iriun.gitlab.io/iriunwebcam-2.8.1.deb

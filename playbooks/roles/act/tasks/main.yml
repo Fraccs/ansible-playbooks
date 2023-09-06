@@ -9,4 +9,5 @@
     dest: /tmp
 
 - name: Install act
+  become: true
   shell: mv /tmp/act /usr/local/bin

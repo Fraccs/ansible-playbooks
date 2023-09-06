@@ -1,4 +1,4 @@
 - name: Remove firefox
+  become: true
   snap:
     name: firefox
-    state: absent

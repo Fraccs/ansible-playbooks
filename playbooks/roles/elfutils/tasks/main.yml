@@ -1,4 +1,4 @@
 - name: Install elfutils
+  become: true
   apt:
     name: elfutils
-    state: present

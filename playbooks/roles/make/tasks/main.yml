@@ -1,9 +1,9 @@
 - name: Install make
+  become: true
   apt:
     name: make
-    state: present
 
 - name: Install cmake
+  become: true
   apt:
     name: cmake
-    state: present

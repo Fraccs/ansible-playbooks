@@ -1,3 +1,4 @@
 - name: Install bitwarden
+  become: true
   apt:
     deb: https://vault.bitwarden.com/download/?app=desktop&platform=linux&variant=deb

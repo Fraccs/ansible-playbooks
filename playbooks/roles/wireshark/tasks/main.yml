@@ -1,9 +1,9 @@
 - name: Install wireshark
+  become: true
   apt:
     name: wireshark
-    state: present
 
 - name: Install tshark
+  become: true
   apt:
     name: tshark
-    state: present

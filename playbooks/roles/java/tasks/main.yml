@@ -1,14 +1,14 @@
 - name: Install JDK
+  become: true
   apt:
     name: openjdk-17-jdk
-    state: present
 
 - name: Install JRE
+  become: true
   apt:
     name: openjdk-17-jre
-    state: present
 
 - name: Install maven
+  become: true
   apt:
     name: maven
-    state: present

@@ -1,7 +1,9 @@
 - name: Install ruby
+  become: true
   apt:
     name: ruby
 
 - name: Install ruby-dev
+  become: true
   apt:
     name: ruby-dev

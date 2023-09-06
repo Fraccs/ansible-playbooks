@@ -1,7 +1,6 @@
 ---
 - name: Setup laptop (Ubuntu 22.04)
   hosts: localhost
-  become: true
   roles:
     - act
     - binwalk

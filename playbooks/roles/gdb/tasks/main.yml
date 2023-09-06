@@ -1,31 +1,37 @@
 - name: Install gdb
+  become: true
   apt:
     name: gdb
-    state: present
 
 - name: Clone gef
+  become: true
   git:
     repo: https://github.com/hugsy/gef
     dest: /opt/gef
+    umask: 777
 
 - name: Create gdb-gef script
+  become: true
   copy:
     dest: /usr/bin/gdb-gef
-    attributes: +x
     content: |
       #!/bin/sh
       exec gdb -q -ex init-gef "$@"
 
 - name: Clone pwndbg
+  become: true
   git:
     repo: https://github.com/pwndbg/pwndbg
     dest: /opt/pwndbg
+    umask: 777
 
 - name: Install pwndbg
+  become: true
   shell:
     cmd: cd /opt/pwndbg && ./setup.sh
 
 - name: Create gdb-pwndbg script
+  become: true
   copy:
     dest: /usr/bin/gdb-pwndbg
     attributes: +x
@@ -34,11 +40,13 @@
       exec gdb -q -ex init-pwndbg "$@"
 
 - name: Clone peda
+  become: true
   git:
     repo: https://github.com/longld/peda.git
     dest: /opt/peda
 
 - name: Create gdb-peda script
+  become: true
   copy:
     dest: /usr/bin/gdb-peda
     attributes: +x
@@ -47,6 +55,7 @@
       exec gdb -q -ex init-peda "$@"
 
 - name: Write gdb configuration
+  become: true
   copy:
     dest: /etc/gdb/gdbinit
     content: |

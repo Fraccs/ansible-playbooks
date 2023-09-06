@@ -1,7 +1,7 @@
 - name: Install git
+  become: true
   apt:
     name: git
-    state: present
 
 - name: Setup git core.editor
   community.general.git_config:

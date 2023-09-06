@@ -1,4 +1,4 @@
 - name: Install wget
+  become: true
   apt:
     name: wget
-    state: present

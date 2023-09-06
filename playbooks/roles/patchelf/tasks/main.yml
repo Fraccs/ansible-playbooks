@@ -1,4 +1,4 @@
 - name: Install patchelf
+  become: true
   apt:
     name: patchelf
-    state: present
