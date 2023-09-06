@@ -15,3 +15,9 @@
   apt:
     name: syncthing
     state: present
+
+- name: Enable syncthing service
+  service:
+    name: syncthing@fraccs.service
+    state: started
+    enabled: true
