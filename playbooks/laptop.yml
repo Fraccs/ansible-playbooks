@@ -12,6 +12,7 @@
     - discord
     - docker
     - elfutils
+    - exiftool
     - firefox
     - gdb
     - ghidra

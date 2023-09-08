@@ -1,0 +1,4 @@
+- name: Install exiftool
+  become: true
+  apt:
+    name: exiftool
