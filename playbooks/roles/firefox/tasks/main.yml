@@ -1,4 +1,12 @@
-- name: Remove firefox
+- name: Remove firefox (apt)
+  become: true
+  apt:
+    name: firefox
+    autoremove: true
+    state: absent
+
+- name: Remove firefox (snap)
   become: true
   snap:
     name: firefox
+    state: absent
