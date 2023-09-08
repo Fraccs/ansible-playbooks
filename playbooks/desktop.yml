@@ -13,6 +13,7 @@
     - docker
     - elfutils
     - exiftool
+    - ffmpeg
     - firefox
     - gdb
     - ghidra
