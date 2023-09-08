@@ -35,6 +35,7 @@
     owner: fraccs
 
 - name: Create ghidra application launcher
+  become: true
   copy:
     dest: /usr/share/applications/ghidra.desktop
     content: |
