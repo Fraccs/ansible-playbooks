@@ -4,7 +4,7 @@
 
 ## Disclaimer
 
-> Some roles contain my personal information (name, email, user..). If you wish to use those playbooks make sure to match yor personal information first.
+> Some roles contain my personal information (name, email, user..). If you wish to use those playbooks make sure they match your personal information first.
 
 ## Get Started
 
