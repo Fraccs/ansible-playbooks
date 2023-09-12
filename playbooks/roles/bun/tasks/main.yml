@@ -1,0 +1,5 @@
+- name: Install bun
+  become: true
+  npm:
+    name: bun
+    global: true
