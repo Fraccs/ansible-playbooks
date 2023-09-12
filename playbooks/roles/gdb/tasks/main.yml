@@ -4,52 +4,48 @@
     name: gdb
 
 - name: Clone gef
-  become: true
   git:
     repo: https://github.com/hugsy/gef
-    dest: /opt/gef
-    umask: 777
+    dest: /home/fraccs/Apps/gef
 
 - name: Create gdb-gef script
   become: true
   copy:
     dest: /usr/bin/gdb-gef
+    mode: o+x
     content: |
       #!/bin/sh
       exec gdb -q -ex init-gef "$@"
 
 - name: Clone pwndbg
-  become: true
   git:
     repo: https://github.com/pwndbg/pwndbg
-    dest: /opt/pwndbg
-    umask: 777
+    dest: /home/fraccs/Apps/pwndbg
 
 - name: Install pwndbg
   become: true
   shell:
-    cmd: cd /opt/pwndbg && ./setup.sh
+    cmd: cd /home/fraccs/Apps/pwndbg && ./setup.sh
 
 - name: Create gdb-pwndbg script
   become: true
   copy:
     dest: /usr/bin/gdb-pwndbg
-    attributes: +x
+    mode: o+x
     content: |
       #!/bin/sh
       exec gdb -q -ex init-pwndbg "$@"
 
 - name: Clone peda
-  become: true
   git:
     repo: https://github.com/longld/peda.git
-    dest: /opt/peda
+    dest: /home/fraccs/Apps/peda
 
 - name: Create gdb-peda script
   become: true
   copy:
     dest: /usr/bin/gdb-peda
-    attributes: +x
+    mode: o+x
     content: |
       #!/bin/sh
       exec gdb -q -ex init-peda "$@"
@@ -60,21 +56,21 @@
     dest: /etc/gdb/gdbinit
     content: |
       define init-gef
-      source /opt/gef/gef.py
+      source /home/fraccs/Apps/gef/gef.py
       end
       document init-gef
       Initializes GEF (GDB Enhanced Features)
       end
 
       define init-pwndbg
-      source /opt/pwndbg/gdbinit.py
+      source /home/fraccs/Apps/pwndbg/gdbinit.py
       end
       document init-pwndbg
       Initializes PwnDBG
       end
 
       define init-peda
-      source /opt/peda/peda.py
+      source /home/fraccs/Apps/peda/peda.py
       end
       document init-peda
       Initializes the PEDA (Python Exploit Development Assistant for GDB) framework

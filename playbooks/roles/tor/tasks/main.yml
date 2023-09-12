@@ -31,12 +31,10 @@
     cmd: gpgv --keyring /tmp/tor.keyring /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz.asc /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
 
 - name: Extract tor browser
-  become: true
   unarchive:
     src: /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
-    dest: /opt
-    owner: fraccs
+    dest: /home/fraccs/Apps
 
 - name: Install tor browser
   shell:
-    cmd: cd /opt/tor-browser && ./start-tor-browser.desktop --register-app
+    cmd: cd /home/fraccs/Apps/tor-browser && ./start-tor-browser.desktop --register-app

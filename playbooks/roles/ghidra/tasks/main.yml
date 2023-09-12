@@ -4,23 +4,13 @@
     dest: /tmp/ghidra_10.3.3_PUBLIC_20230829.zip
 
 - name: Extract ghidra
-  become: true
   unarchive:
     src: /tmp/ghidra_10.3.3_PUBLIC_20230829.zip
-    dest: /opt
-    owner: fraccs
-
-- name: Ensure that ghidra was extracted
-  become: true
-  stat:
-    path: /opt/ghidra_10.3.3_PUBLIC
-  register: ghidra_stat
+    dest: /home/fraccs/Apps
 
 - name: Rename extracted ghidra directory
-  become: true
   command:
-    cmd: mv /opt/ghidra_10.3.3_PUBLIC /opt/ghidra
-  when: ghidra_stat.stat.exists
+    cmd: mv /home/fraccs/Apps/ghidra_10.3.3_PUBLIC /home/fraccs/Apps/ghidra
 
 - name: Download ghidra icon
   get_url:
@@ -28,11 +18,9 @@
     dest: /tmp/ghidra_ico.zip
 
 - name: Extract ghidra icon
-  become: true
   unarchive:
     src: /tmp/ghidra_ico.zip
-    dest: /opt/ghidra/support
-    owner: fraccs
+    dest: /home/fraccs/Apps/ghidra/support
 
 - name: Create ghidra application launcher
   become: true
@@ -42,7 +30,7 @@
       [Desktop Entry]
       Encoding=UTF-8
       Name=Ghidra
-      Exec=/opt/ghidra/ghidraRun
-      Icon=/opt/ghidra/support/ghidra.ico
+      Exec=/home/fraccs/Apps/ghidra/ghidraRun
+      Icon=/home/fraccs/Apps/ghidra/support/ghidra.ico
       Type=Application
       Categories=Reversing;
