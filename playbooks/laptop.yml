@@ -34,6 +34,7 @@
     - pycryptodome
     - pyshark
     - python
+    - raspberrypi
     - ropper
     - ruby
     - spotify
