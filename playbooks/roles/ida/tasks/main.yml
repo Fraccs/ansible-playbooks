@@ -1,0 +1,22 @@
+- name: Download IDA Free
+  get_url:
+    url: https://out7.hex-rays.com/files/idafree83_linux.run
+    dest: /tmp/idafree.run
+    mode: +x
+
+- name: Install IDA Free
+  shell:
+    cmd: cd /tmp && ./idafree.run
+
+- name: Create IDA Free application launcher
+  become: true
+  copy:
+    dest: /usr/share/applications/ida.desktop
+    content: |
+      [Desktop Entry]
+      Encoding=UTF-8
+      Name=IDA Free
+      Exec=/home/fraccs/Apps/idafree/ida64
+      Icon=/home/fraccs/Apps/idafree/appico64.png
+      Type=Application
+      Categories=Reversing;
