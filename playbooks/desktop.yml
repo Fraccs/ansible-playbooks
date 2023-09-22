@@ -28,6 +28,7 @@
     - ltrace
     - make
     - mtp
+    - nmap
     - nodejs
     - nvidia
     - obsidian

@@ -27,6 +27,7 @@
     - ltrace
     - make
     - mtp
+    - nmap
     - nodejs
     - obsidian
     - patchelf
