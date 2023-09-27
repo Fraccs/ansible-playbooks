@@ -1,12 +1,29 @@
+- name: Stat if IDA Free is installed
+  stat:
+    path: ~/Apps/idafree
+  register: idafree
+
 - name: Download IDA Free
   get_url:
     url: https://out7.hex-rays.com/files/idafree83_linux.run
     dest: /tmp/idafree.run
     mode: +x
+  when: not idafree.stat.exists
+
+- name: Stat if IDA Free was downloaded
+  stat:
+    path: /tmp/idafree.run
+  register: idafree_download
 
 - name: Install IDA Free
   shell:
     cmd: cd /tmp && ./idafree.run
+  when: idafree_download.stat.exists and not idafree.stat.exists
+
+- name: Stat if IDA Free application launcher exists
+  stat:
+    path: /usr/share/applications/ida.desktop
+  register: idafree_launcher
 
 - name: Create IDA Free application launcher
   become: true
@@ -16,7 +33,8 @@
       [Desktop Entry]
       Encoding=UTF-8
       Name=IDA Free
-      Exec=/home/fraccs/Apps/idafree/ida64
-      Icon=/home/fraccs/Apps/idafree/appico64.png
+      Exec=~/Apps/idafree/ida64
+      Icon=~/Apps/idafree/appico64.png
       Type=Application
       Categories=Reversing;
+  when: not idafree_launcher.stat.exists

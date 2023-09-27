@@ -1,8 +1,20 @@
+- name: Stat if burpsuite is installed
+  stat:
+    path: ~/Apps/BurpSuiteCommunity
+  register: burp
+
 - name: Download burpsuite
   get_url:
     url: https://portswigger-cdn.net/burp/releases/download?product=community&version=2023.9.4&type=Linux
     dest: /tmp/burpsuite.sh
+  when: not burp.stat.exists
+
+- name: Stat if burpsuite was downloaded
+  stat:
+    path: /tmp/burpsuite.sh
+  register: burp_download
 
 - name: Install burpsuite
   command:
     cmd: bash /tmp/burpsuite.sh
+  when: burp_download.stat.exists

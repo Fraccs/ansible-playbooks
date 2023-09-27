@@ -3,10 +3,21 @@
   apt:
     name: gdb
 
+- name: Stat if gef is cloned
+  stat:
+    path: ~/Apps/gef
+  register: gef
+
 - name: Clone gef
   git:
     repo: https://github.com/hugsy/gef
-    dest: /home/fraccs/Apps/gef
+    dest: ~/Apps/gef
+  when: not gef.stat.exists
+
+- name: Stat if gdb-gef exists
+  stat:
+    path: /usr/bin/gdb-gef
+  register: gdb_gef
 
 - name: Create gdb-gef script
   become: true
@@ -16,16 +27,29 @@
     content: |
       #!/bin/sh
       exec gdb -q -ex init-gef "$@"
+  when: not gdb_gef.stat.exists
+
+- name: Stat if pwndbg is cloned
+  stat:
+    path: ~/Apps/pwndbg
+  register: pwndbg
 
 - name: Clone pwndbg
   git:
     repo: https://github.com/pwndbg/pwndbg
-    dest: /home/fraccs/Apps/pwndbg
+    dest: ~/Apps/pwndbg
+  when: not pwndbg.stat.exists
 
 - name: Install pwndbg
   become: true
   shell:
     cmd: cd /home/fraccs/Apps/pwndbg && ./setup.sh
+  when: not pwndbg.stat.exists
+
+- name: Stat if gdb-pwndbg exists
+  stat:
+    path: /usr/bin/gdb-pwndbg
+  register: gdb_pwndbg
 
 - name: Create gdb-pwndbg script
   become: true
@@ -35,11 +59,23 @@
     content: |
       #!/bin/sh
       exec gdb -q -ex init-pwndbg "$@"
+  when: not gdb_pwndbg.stat.exists
+
+- name: Stat if peda is cloned
+  stat:
+    path: ~/Apps/peda
+  register: peda
 
 - name: Clone peda
   git:
     repo: https://github.com/longld/peda.git
-    dest: /home/fraccs/Apps/peda
+    dest: ~/Apps/peda
+  when: not peda.stat.exists
+
+- name: Stat if gdb-peda exists
+  stat:
+    path: /usr/bin/gdb-peda
+  register: gdb_peda
 
 - name: Create gdb-peda script
   become: true
@@ -49,6 +85,7 @@
     content: |
       #!/bin/sh
       exec gdb -q -ex init-peda "$@"
+  when: not gdb_peda.stat.exists
 
 - name: Write gdb configuration
   become: true

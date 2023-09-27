@@ -1,26 +1,56 @@
+- name: Stat if ghidra is installed
+  stat:
+    path: ~/Apps/ghidra
+  register: ghidra
+
 - name: Download ghidra
   get_url:
     url: https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.3.3_build/ghidra_10.3.3_PUBLIC_20230829.zip
     dest: /tmp/ghidra_10.3.3_PUBLIC_20230829.zip
+  when: not ghidra.stat.exists
+
+- name: Stat if ghidra was downloaded
+  stat:
+    path: /tmp/ghidra_10.3.3_PUBLIC_20230829.zip
+  register: ghidra_download
 
 - name: Extract ghidra
   unarchive:
     src: /tmp/ghidra_10.3.3_PUBLIC_20230829.zip
     dest: /home/fraccs/Apps
+  when: ghidra_download.stat.exists
+
+- name: Stat if ghidra was unarchived
+  stat:
+    path: /home/fraccs/Apps/ghidra_10.3.3_PUBLIC
+  register: ghidra_unarchive
 
 - name: Rename extracted ghidra directory
   command:
     cmd: mv /home/fraccs/Apps/ghidra_10.3.3_PUBLIC /home/fraccs/Apps/ghidra
+  when: ghidra_unarchive.stat.exists
 
 - name: Download ghidra icon
   get_url:
     url: https://github.com/NationalSecurityAgency/ghidra/files/3853902/ghidra_ico.zip
     dest: /tmp/ghidra_ico.zip
+  when: ghidra_unarchive.stat.exists
+
+- name: Stat if ghidra icon was downloaded
+  stat:
+    path: /tmp/ghidra_ico.zip
+  register: ghidra_icon
 
 - name: Extract ghidra icon
   unarchive:
     src: /tmp/ghidra_ico.zip
     dest: /home/fraccs/Apps/ghidra/support
+  when: ghidra_icon.stat.exists
+
+- name: Stat if ghidra application launcher exists
+  stat:
+    path: /usr/share/applications/ghidra.desktop
+  register: ghidra_launcher
 
 - name: Create ghidra application launcher
   become: true
@@ -34,3 +64,4 @@
       Icon=/home/fraccs/Apps/ghidra/support/ghidra.ico
       Type=Application
       Categories=Reversing;
+  when: not ghidra_launcher.stat.exists

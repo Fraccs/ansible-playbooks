@@ -1,13 +1,31 @@
+- name: Stat if act is already installed
+  stat:
+    path: /usr/local/bin/act
+  register: act
+
 - name: Download act binary
   get_url:
     url: https://github.com/nektos/act/releases/download/v0.2.49/act_Linux_x86_64.tar.gz
     dest: /tmp/act_Linux_x86_64.tar.gz
+  when: not act.stat.exists
+
+- name: Stat if act was downloaded
+  stat:
+    path: /tmp/act_Linux_x86_64.tar.gz
+  register: act_download
 
 - name: Decompress tar
   unarchive:
     src: /tmp/act_Linux_x86_64.tar.gz
     dest: /tmp
+  when: act_download.stat.exists
+
+- name: Stat if act was decompressed
+  stat:
+    path: /tmp/act
+  register: act_decompress
 
 - name: Install act
   become: true
   shell: mv /tmp/act /usr/local/bin
+  when: act_decompress.stat.exists

@@ -4,37 +4,64 @@
     name: tor
     state: latest
 
-- name: Download tor browser
-  get_url:
-    url: https://dist.torproject.org/torbrowser/12.5.3/tor-browser-linux64-12.5.3_ALL.tar.xz
-    dest: /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
+- name: Stat if tor-browser is installed
+  stat:
+    path: ~/Apps/tor-browser
+  register: tor_browser
 
-- name: Import tor browser developers key
+- name: Download tor-browser
+  get_url:
+    url: https://dist.torproject.org/torbrowser/12.5.5/tor-browser-linux64-12.5.5_ALL.tar.xz
+    dest: /tmp/tor-browser-linux64-12.5.5_ALL.tar.xz
+  when: not tor_browser.stat.exists
+
+- name: Stat if tor-browser was downloaded
+  stat:
+    path: /tmp/tor-browser-linux64-12.5.5_ALL.tar.xz
+  register: tor_browser_download
+
+- name: Import tor-browser developers key
   become: true
   shell:
     cmd: gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
   register: gpg_output
+  when: tor_browser_download.stat.exists
 
-- name: Export tor browser developers key to file
+- name: Export tor-browser developers key to file
   become: true
   shell:
     cmd: gpg --output /tmp/tor.keyring --export 0xEF6E286DDA85EA2A4BA7DE684E2C6E8793298290
+  when: tor_browser_download.stat.exists
 
-- name: Download tor browser signature
+- name: Download tor-browser signature
   get_url:
-    url: https://www.torproject.org/dist/torbrowser/12.5.3/tor-browser-linux64-12.5.3_ALL.tar.xz.asc
-    dest: /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz.asc
+    url: https://www.torproject.org/dist/torbrowser/12.5.5/tor-browser-linux64-12.5.5_ALL.tar.xz.asc
+    dest: /tmp/tor-browser-linux64-12.5.5_ALL.tar.xz.asc
+  when: tor_browser_download.stat.exists
 
-- name: Verify tor browser signature
+- name: Stat if tor-browser signature was downloaded
+  stat:
+    path: /tmp/tor-browser-linux64-12.5.5_ALL.tar.xz.asc
+  register: tor_browser_signature_download
+
+- name: Verify tor-browser signature
   become: true
   shell:
-    cmd: gpgv --keyring /tmp/tor.keyring /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz.asc /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
+    cmd: gpgv --keyring /tmp/tor.keyring /tmp/tor-browser-linux64-12.5.5_ALL.tar.xz.asc /tmp/tor-browser-linux64-12.5.5_ALL.tar.xz
+  when: tor_browser_signature_download.stat.exists
 
-- name: Extract tor browser
+- name: Unarchive tor-browser
   unarchive:
-    src: /tmp/tor-browser-linux64-12.5.3_ALL.tar.xz
-    dest: /home/fraccs/Apps
+    src: /tmp/tor-browser-linux64-12.5.5_ALL.tar.xz
+    dest: ~/Apps
+  when: tor_browser_download.stat.exists
 
-- name: Install tor browser
+- name: Stat if tor-browser was unarchived
+  stat:
+    path: ~/Apps/tor-browser
+  register: tor_browser_unarchive
+
+- name: Install tor-browser
   shell:
-    cmd: cd /home/fraccs/Apps/tor-browser && ./start-tor-browser.desktop --register-app
+    cmd: cd ~/Apps/tor-browser && ./start-tor-browser.desktop --register-app
+  when: tor_browser_unarchive.stat.exists and not tor_browser.stat.exists
