@@ -36,6 +36,7 @@
     - pycryptodome
     - pyshark
     - python
+    - qemu-kvm
     - raspberrypi
     - ropper
     - ruby

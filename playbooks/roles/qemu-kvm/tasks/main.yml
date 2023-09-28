@@ -1,0 +1,19 @@
+- name: Install qemu-kvm
+  become: true
+  apt:
+    name: qemu-kvm
+
+- name: Install libvirt-daemon-system
+  become: true
+  apt:
+    name: libvirt-daemon-system
+
+- name: Install libvirt-clients
+  become: true
+  apt:
+    name: libvirt-clients
+
+- name: Install virt-manager
+  become: true
+  apt:
+    name: virt-manager
