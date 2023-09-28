@@ -11,6 +11,7 @@
     - chrome
     - curl
     - discord
+    - dnsutils
     - docker
     - elfutils
     - exiftool

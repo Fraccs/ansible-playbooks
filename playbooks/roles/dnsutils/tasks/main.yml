@@ -1,0 +1,4 @@
+- name: Install dnsutils
+  become: true
+  apt:
+    name: dnsutils
